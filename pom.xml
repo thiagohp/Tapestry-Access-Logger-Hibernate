@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>br.com.arsmachina</groupId>
+	<artifactId>tapestry-access-logger-hibernate</artifactId>
+	<name>Tapestry Access Logger-Hibernate</name>
+	<description>
+		A Tapestry Access Logger implementation that uses Hibernate to 
+		store user accesses (visits) in a database 
+	</description>
+	<version>0.9</version>
+	<url>http://www.arsmachina.com.br/project/tapestryaccessloggerhibernate</url>
+	<parent>
+		<groupId>br.com.arsmachina</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.9</version>
+		<relativePath>../parent/pom.xml</relativePath>
+	</parent>
+	<dependencies>
+		<dependency>
+			<groupId>br.com.arsmachina</groupId>
+			<artifactId>generic-authentication</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>br.com.arsmachina</groupId>
+			<artifactId>tapestry-access-logger</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>br.com.arsmachina</groupId>
+			<artifactId>generic-dao-hibernate</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-commons-annotations</artifactId>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Tapestry-Module-Classes>
+								br.com.arsmachina.accesslogger.hibernate.TapestryAccessLoggerHibernateModule
+							</Tapestry-Module-Classes>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>	
+</project>

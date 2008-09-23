@@ -1,0 +1,210 @@
+// Copyright 2008 Thiago H. de Paula Figueiredo
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package br.com.arsmachina.accesslogger.hibernate;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.hibernate.validator.Length;
+import org.hibernate.validator.NotNull;
+
+import br.com.arsmachina.authentication.entity.User;
+
+/**
+ * Persistent {@link br.com.arsmachina.accesslogger.Access} subclass.
+ * 
+ * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ */
+@Entity
+@Table(name = "access")
+public class Access extends br.com.arsmachina.accesslogger.Access {
+
+	private static final int MAXIMUM_VARCHAR_LENGTH = 255;
+
+	private static final int MAXIMUM_JSESSIONID_LENGTH = 40;
+
+	private Long id;
+
+	/**
+	 * Default constructor.
+	 */
+	public Access() {
+	}
+
+	/**
+	 * Constructor that receives an {@link br.com.arsmachina.accesslogger.Access} instance. All
+	 * property values are copied to the created object.
+	 * 
+	 * @param access an {@link br.com.arsmachina.accesslogger.Access}. It cannot be null.
+	 */
+	public Access(br.com.arsmachina.accesslogger.Access access) {
+
+		if (access == null) {
+			throw new IllegalArgumentException("Parameter access cannot be null");
+		}
+
+		setActivationContext(access.getActivationContext());
+		setContextPath(access.getContextPath());
+		setIp(access.getIp());
+		setPage(access.getPage());
+		setQueryString(access.getQueryString());
+		setReferer(access.getReferer());
+		setSessionId(access.getSessionId());
+		setTimestamp(access.getTimestamp());
+		setUrl(access.getUrl());
+		setUser(access.getUser());
+		setUserAgent(access.getUserAgent());
+
+	}
+
+	/**
+	 * @see br.com.arsmachina.accesslogger.Access#getContextPath()
+	 */
+	@NotNull
+	@Length(max = MAXIMUM_VARCHAR_LENGTH)
+	@Column(nullable = false, length = MAXIMUM_VARCHAR_LENGTH)
+	@Override
+	public String getContextPath() {
+		return super.getContextPath();
+	}
+
+	/**
+	 * @see br.com.arsmachina.accesslogger.Access#getPage()
+	 */
+	@Length(max = MAXIMUM_VARCHAR_LENGTH)
+	@Column(length = MAXIMUM_VARCHAR_LENGTH)
+	@Override
+	public String getPage() {
+		return super.getPage();
+	}
+
+	/**
+	 * @see br.com.arsmachina.accesslogger.Access#getReferer()
+	 */
+	@Length(max = MAXIMUM_VARCHAR_LENGTH)
+	@Column(length = MAXIMUM_VARCHAR_LENGTH)
+	@Override
+	public String getReferer() {
+		return super.getReferer();
+	}
+
+	/**
+	 * @see br.com.arsmachina.accesslogger.Access#getTimestamp()
+	 */
+	@NotNull
+	@Override
+	public Date getTimestamp() {
+		return super.getTimestamp();
+	}
+
+	/**
+	 * @see br.com.arsmachina.accesslogger.Access#getUserAgent()
+	 */
+	@NotNull
+	@Length(max = MAXIMUM_VARCHAR_LENGTH)
+	@Column(nullable = false, length = MAXIMUM_VARCHAR_LENGTH)
+	@Override
+	public String getUserAgent() {
+		return super.getUserAgent();
+	}
+
+	/**
+	 * Returns the value of the <code>id</code> property.
+	 * 
+	 * @return a {@link Long}.
+	 */
+	@Id
+	@GeneratedValue
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * Changes the value of the <code>id</code> property.
+	 * 
+	 * @param id a {@link Long}.
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/**
+	 * @see br.com.arsmachina.accesslogger.Access#getActivationContext()
+	 */
+	@Length(max = MAXIMUM_VARCHAR_LENGTH)
+	@Column(length = MAXIMUM_VARCHAR_LENGTH)
+	@Override
+	public String getActivationContext() {
+		return super.getActivationContext();
+	}
+
+	/**
+	 * @see br.com.arsmachina.accesslogger.Access#getIp()
+	 */
+	@NotNull
+	@Length(max = 15)
+	@Column(nullable = false, length = 15)
+	@Override
+	public String getIp() {
+		return super.getIp();
+	}
+
+	/**
+	 * @see br.com.arsmachina.accesslogger.Access#getQueryString()
+	 */
+	@Length(max = MAXIMUM_VARCHAR_LENGTH)
+	@Column(length = MAXIMUM_VARCHAR_LENGTH)
+	@Override
+	public String getQueryString() {
+		return super.getQueryString();
+	}
+
+	/**
+	 * @see br.com.arsmachina.accesslogger.Access#getSessionId()
+	 */
+	@Length(max = MAXIMUM_JSESSIONID_LENGTH)
+	@Column(length = MAXIMUM_JSESSIONID_LENGTH)
+	@Override
+	public String getSessionId() {
+		return super.getSessionId();
+	}
+
+	/**
+	 * @see br.com.arsmachina.accesslogger.Access#getUrl()
+	 */
+	@NotNull
+	@Length(max = MAXIMUM_VARCHAR_LENGTH)
+	@Column(nullable = false, length = MAXIMUM_VARCHAR_LENGTH)
+	@Override
+	public String getUrl() {
+		return super.getUrl();
+	}
+
+	/**
+	 * @see br.com.arsmachina.accesslogger.Access#getUser()
+	 */
+	@ManyToOne
+	@Override
+	public User getUser() {
+		return super.getUser();
+	}
+
+}
