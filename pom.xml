@@ -28,10 +28,6 @@
 			<artifactId>tapestry-access-logger</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>br.com.arsmachina</groupId>
-			<artifactId>generic-dao-hibernate</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate</artifactId>
 		</dependency>

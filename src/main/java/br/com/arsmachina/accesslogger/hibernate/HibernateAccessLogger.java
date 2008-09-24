@@ -14,9 +14,15 @@
 
 package br.com.arsmachina.accesslogger.hibernate;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import br.com.arsmachina.accesslogger.Access;
 import br.com.arsmachina.accesslogger.AccessLogger;
-import br.com.arsmachina.accesslogger.hibernate.controller.AccessController;
 
 /**
  * {@link AccessLogger} implementation using Hibernate to persist {@link Access} instances in a
@@ -25,23 +31,62 @@ import br.com.arsmachina.accesslogger.hibernate.controller.AccessController;
  * @author Thiago H. de Paula Figueiredo (ThiagoHP)
  */
 public class HibernateAccessLogger implements AccessLogger {
+	
+	private Logger logger = LoggerFactory.getLogger(HibernateAccessLogger.class);
 
-	private AccessController controller;
+	private SessionFactory sessionFactory;
 
 	/**
 	 * Single constructor of this class.
 	 * 
-	 * @param controller an {@link AccessController}.
+	 * @param sessionFactory a {@link SessionFactory}. It cannot be null.
 	 */
-	public HibernateAccessLogger(AccessController controller) {
-		this.controller = controller;
+	public HibernateAccessLogger(SessionFactory sessionFactory) {
+
+		if (sessionFactory == null) {
+			throw new IllegalArgumentException("Parameter sessionFactory cannot be null");
+		}
+
+		this.sessionFactory = sessionFactory;
+
 	}
 
 	/**
 	 * @see br.com.arsmachina.accesslogger.AccessLogger#log(br.com.arsmachina.accesslogger.Access)
 	 */
 	public void log(Access access) {
-		 controller.save(new br.com.arsmachina.accesslogger.hibernate.Access(access));
+		
+		final Session session = sessionFactory.openSession();
+		Transaction transaction = null;
+
+		if (access instanceof br.com.arsmachina.accesslogger.hibernate.Access == false) {
+			access = new br.com.arsmachina.accesslogger.hibernate.Access(access);
+		}
+		
+		try {
+			transaction = session.beginTransaction();
+			session.save(access);
+			transaction.commit();
+		}
+		catch (HibernateException e) {
+			
+			if (logger.isErrorEnabled()) {
+				logger.error("Exception while inserting access", e);
+			}
+			
+			if (transaction != null) {
+				transaction.rollback();
+			}
+			
+		}
+		finally {
+			
+			if (session != null) {
+				session.close();
+			}
+			
+		}
+
 	}
 
 }

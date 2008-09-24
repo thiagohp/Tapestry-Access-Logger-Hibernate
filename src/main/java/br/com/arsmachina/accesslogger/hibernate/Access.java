@@ -19,6 +19,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -40,6 +41,10 @@ public class Access extends br.com.arsmachina.accesslogger.Access {
 	private static final int MAXIMUM_VARCHAR_LENGTH = 255;
 
 	private static final int MAXIMUM_JSESSIONID_LENGTH = 40;
+
+	private static final int MAXIMUM_REMOTE_HOST_LENGTH = 50;
+
+	private static final int MAXIMUM_LOCALE_LENGTH = 15;
 
 	private Long id;
 
@@ -64,9 +69,11 @@ public class Access extends br.com.arsmachina.accesslogger.Access {
 		setActivationContext(access.getActivationContext());
 		setContextPath(access.getContextPath());
 		setIp(access.getIp());
+		setLocale(access.getLocale());
 		setPage(access.getPage());
 		setQueryString(access.getQueryString());
 		setReferer(access.getReferer());
+		setRemoteHost(access.getRemoteHost());
 		setSessionId(access.getSessionId());
 		setTimestamp(access.getTimestamp());
 		setUrl(access.getUrl());
@@ -132,7 +139,7 @@ public class Access extends br.com.arsmachina.accesslogger.Access {
 	 * @return a {@link Long}.
 	 */
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}
@@ -205,6 +212,24 @@ public class Access extends br.com.arsmachina.accesslogger.Access {
 	@Override
 	public User getUser() {
 		return super.getUser();
+	}
+
+	/**
+	 * @see br.com.arsmachina.accesslogger.Access#getLocale()
+	 */
+	@Column(length = MAXIMUM_LOCALE_LENGTH)
+	@Override
+	public String getLocale() {
+		return super.getLocale();
+	}
+
+	/**
+	 * @see br.com.arsmachina.accesslogger.Access#getRemoteHost()
+	 */
+	@Column(nullable = false, length = MAXIMUM_REMOTE_HOST_LENGTH)
+	@Override
+	public String getRemoteHost() {
+		return super.getRemoteHost();
 	}
 
 }

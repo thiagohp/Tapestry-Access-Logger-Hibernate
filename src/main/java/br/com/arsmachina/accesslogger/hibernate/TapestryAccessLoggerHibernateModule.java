@@ -19,10 +19,6 @@ import org.apache.tapestry5.ioc.ServiceBinder;
 import org.hibernate.SessionFactory;
 
 import br.com.arsmachina.accesslogger.AccessLogger;
-import br.com.arsmachina.accesslogger.hibernate.controller.AccessController;
-import br.com.arsmachina.accesslogger.hibernate.controller.impl.AccessControllerImpl;
-import br.com.arsmachina.accesslogger.hibernate.dao.AccessDAO;
-import br.com.arsmachina.accesslogger.hibernate.dao.impl.AccessDAOImpl;
 
 /**
  * Tapestry-IoC module class.
@@ -37,8 +33,6 @@ public class TapestryAccessLoggerHibernateModule {
 	 * @param binder a {@link ServiceBinder}.
 	 */
 	public static void bind(ServiceBinder binder) {
-		binder.bind(AccessDAO.class, AccessDAOImpl.class);
-		binder.bind(AccessController.class, AccessControllerImpl.class);
 		binder.bind(HibernateAccessLogger.class);
 	}
 
