@@ -23,7 +23,7 @@ import br.com.arsmachina.accesslogger.AccessLogger;
 /**
  * Tapestry-IoC module class.
  * 
- * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ * @author Thiago H. de Paula Figueiredo
  */
 public class TapestryAccessLoggerHibernateModule {
 	

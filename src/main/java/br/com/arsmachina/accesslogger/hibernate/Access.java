@@ -32,7 +32,7 @@ import br.com.arsmachina.authentication.entity.User;
 /**
  * Persistent {@link br.com.arsmachina.accesslogger.Access} subclass.
  * 
- * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ * @author Thiago H. de Paula Figueiredo
  */
 @Entity
 @Table(name = "access")

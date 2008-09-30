@@ -28,7 +28,7 @@ import br.com.arsmachina.accesslogger.AccessLogger;
  * {@link AccessLogger} implementation using Hibernate to persist {@link Access} instances in a
  * relationational database.
  * 
- * @author Thiago H. de Paula Figueiredo (ThiagoHP)
+ * @author Thiago H. de Paula Figueiredo
  */
 public class HibernateAccessLogger implements AccessLogger {
 	
