@@ -38,6 +38,8 @@ import br.com.arsmachina.authentication.entity.User;
 @Table(name = "access")
 public class Access extends br.com.arsmachina.accesslogger.Access {
 
+	private static final int MAXIMUM_IP_LENGTH = 20;
+
 	private static final int MAXIMUM_VARCHAR_LENGTH = 255;
 
 	private static final int MAXIMUM_JSESSIONID_LENGTH = 40;
@@ -167,8 +169,8 @@ public class Access extends br.com.arsmachina.accesslogger.Access {
 	 * @see br.com.arsmachina.accesslogger.Access#getIp()
 	 */
 	@NotNull
-	@Length(max = 15)
-	@Column(nullable = false, length = 15)
+	@Length(max = MAXIMUM_IP_LENGTH)
+	@Column(nullable = false, length = MAXIMUM_IP_LENGTH)
 	@Override
 	public String getIp() {
 		return super.getIp();
