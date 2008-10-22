@@ -10,12 +10,12 @@
 		A Tapestry Access Logger implementation that uses Hibernate to 
 		store user accesses (visits) in a database 
 	</description>
-	<version>0.9</version>
+	<version>1.0</version>
 	<url>http://www.arsmachina.com.br/project/tapestryaccessloggerhibernate</url>
 	<parent>
 		<groupId>br.com.arsmachina</groupId>
 		<artifactId>parent</artifactId>
-		<version>0.9</version>
+		<version>1.0</version>
 		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
 	<dependencies>
