@@ -1,0 +1,5 @@
+1.0
+* Updated Hibernate dependency.
+
+0.9
+* Initial version.
