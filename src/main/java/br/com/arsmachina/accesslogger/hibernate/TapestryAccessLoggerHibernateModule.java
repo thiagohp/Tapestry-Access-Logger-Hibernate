@@ -16,6 +16,7 @@ package br.com.arsmachina.accesslogger.hibernate;
 
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
+import org.apache.tapestry5.ioc.annotations.SubModule;
 import org.hibernate.SessionFactory;
 
 import br.com.arsmachina.accesslogger.AccessLogger;

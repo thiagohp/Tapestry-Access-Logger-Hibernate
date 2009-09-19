@@ -51,9 +51,6 @@ public class HibernateAccessLogger implements AccessLogger {
 
 	}
 
-	/**
-	 * @see br.com.arsmachina.accesslogger.AccessLogger#log(br.com.arsmachina.accesslogger.Access)
-	 */
 	public void log(Access access) {
 		
 		final Session session = sessionFactory.openSession();
