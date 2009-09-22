@@ -14,6 +14,9 @@
 
 package br.com.arsmachina.accesslogger.hibernate;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -32,9 +35,11 @@ import br.com.arsmachina.accesslogger.AccessLogger;
  */
 public class HibernateAccessLogger implements AccessLogger {
 	
-	private Logger logger = LoggerFactory.getLogger(HibernateAccessLogger.class);
+	final private Logger logger = LoggerFactory.getLogger(HibernateAccessLogger.class);
 
-	private SessionFactory sessionFactory;
+	final private SessionFactory sessionFactory;
+	
+	final private Executor executor = Executors.newSingleThreadExecutor(); 
 
 	/**
 	 * Single constructor of this class.
@@ -51,7 +56,19 @@ public class HibernateAccessLogger implements AccessLogger {
 
 	}
 
-	public void log(Access access) {
+	public void log(final Access access) {
+		
+		Runnable runnable = new Runnable() {
+			public void run() {
+				insert(access);
+			}
+		};
+		
+		executor.execute(runnable);
+
+	}
+	
+	private void insert(Access access) {
 		
 		final Session session = sessionFactory.openSession();
 		Transaction transaction = null;
@@ -83,7 +100,7 @@ public class HibernateAccessLogger implements AccessLogger {
 			}
 			
 		}
-
+		
 	}
 
 }
