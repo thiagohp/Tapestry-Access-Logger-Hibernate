@@ -16,10 +16,10 @@ package br.com.arsmachina.accesslogger.hibernate;
 
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
-import org.apache.tapestry5.ioc.annotations.SubModule;
 import org.hibernate.SessionFactory;
 
 import br.com.arsmachina.accesslogger.AccessLogger;
+import br.com.arsmachina.accesslogger.services.AccessLoggerHub;
 
 /**
  * Tapestry-IoC module class.
@@ -37,9 +37,18 @@ public class TapestryAccessLoggerHibernateModule {
 		binder.bind(HibernateAccessLogger.class);
 	}
 
+	/**
+	 * Contributes {@link HibernateAccessLogger} to the {@link AccessLoggerHub} service.
+	 * 
+	 * @param configuration an {@link OrderedConfiguration} configuration.
+	 * @param sessionFactory a {@link SessionFactory}.
+	 * @param hibernateAccessLogger an {@link HibernateAccessLogger}.
+	 */
 	public void contributeAccessLoggerHub(OrderedConfiguration<AccessLogger> configuration,
 			SessionFactory sessionFactory, HibernateAccessLogger hibernateAccessLogger) {
+		
 		configuration.add("hibernate", hibernateAccessLogger);
+		
 	}
 
 }
