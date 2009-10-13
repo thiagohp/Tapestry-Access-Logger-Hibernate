@@ -127,8 +127,7 @@ public class Access extends br.com.arsmachina.accesslogger.Access {
 	/**
 	 * @see br.com.arsmachina.accesslogger.Access#getUserAgent()
 	 */
-	@NotNull
-	@Length(max = MAXIMUM_VARCHAR_LENGTH)
+	@Length(min = 0, max = MAXIMUM_VARCHAR_LENGTH)
 	@Column(nullable = false, length = MAXIMUM_VARCHAR_LENGTH)
 	@Override
 	public String getUserAgent() {
